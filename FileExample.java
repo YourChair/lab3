@@ -50,6 +50,19 @@ public class FileExample {
 	  }
 	  return result;
 	}
+
+  static List<File> getFilesFixed(File start){
+	  File f = start;
+	  List<File> result = new ArrayList<>();
+	  result.add(start);
+	  if(f.isDirectory()) {
+      File[] paths = f.listFiles();
+      for(File subFile: paths) {
+        result.add(subFile);
+      }
+	  }
+	  return result;
+	}
 }
 
 
