@@ -51,17 +51,58 @@ public class FileExample {
 	  return result;
 	}
 
-  static List<File> getFilesFixed(File start){
+  static List<File> getFilesFixed(File start) {
 	  File f = start;
 	  List<File> result = new ArrayList<>();
-	  result.add(start);
+    
+    if(!(f.isDirectory())) {
+      result.add(start);
+      return result;
+    }
 	  if(f.isDirectory()) {
       File[] paths = f.listFiles();
       for(File subFile: paths) {
+        //if(!(f.isDirectory())) {
         result.add(subFile);
+          
+        return getFilesFixed(subFile);
       }
 	  }
+    for (int i = 0; i < result.size(); i++) {
+      System.out.println(result.get(i));
+    }
 	  return result;
+    
+    
+	}
+  
+  static List<File> getFilesFixedException(File start, List<File> result) throws IOException {
+	  File f = start;
+	  //List<File> result = new ArrayList<>();
+    
+    try {
+      
+	    if(!(f.isDirectory())) {
+        result.add(start);
+        return result;
+      }
+	    else if(f.isDirectory()) {
+        File[] paths = f.listFiles();
+        for(File subFile: paths) {
+          //if(!(f.isDirectory())) {
+          result = getFilesFixedException(subFile, result);
+          
+          
+        }
+      
+	    }
+    }
+    catch(IOException e) {
+        e.printStackTrace();
+    }
+	  return result;
+    
+    
 	}
 }
 
